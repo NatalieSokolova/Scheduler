@@ -1,7 +1,8 @@
 import React from "react";
 
-return (
-  <ul>
-    
-  </ul>
-)
+export default function DayList(props) {
+
+    return (
+  <ul></ul>
+);
+}
