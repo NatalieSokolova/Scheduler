@@ -1,10 +1,8 @@
-//import React from "react";
-
 import React, { useState } from "react";
 
 import "components/Application.scss";
 
-import DayList from "components/DayList.js";
+import DayList from "components/DayList.jsx";
 
 const days = [
   {
@@ -54,4 +52,5 @@ export default function Application(props) {
       </section>
     </main>
   );
+
 }

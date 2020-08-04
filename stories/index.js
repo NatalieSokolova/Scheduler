@@ -7,9 +7,9 @@ import "index.scss";
 
 import Button from "components/Button";
 
-import DayListItem from "components/DayListItem.js";
+import DayListItem from "components/DayListItem.jsx";
 
-import DayList from "components/DayList.js";
+import DayList from "components/DayList.jsx";
 
 storiesOf("Button", module)
   .addParameters({
