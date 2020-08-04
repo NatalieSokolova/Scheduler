@@ -9,7 +9,8 @@ import DayListItem from "components/DayListItem.jsx";
 import DayList from "components/DayList.jsx";
 import InterviewerListItem from "components/InterviewerListItem.jsx";
 import InterviewerList from "components/InterviewerList.jsx";
-import "components/Appointment/index.js"
+import Appointment from "components/Appointment/index.js"
+import Header from "components/Appointment/Header.jsx"
 
 storiesOf("Button", module)
   .addParameters({
@@ -132,3 +133,4 @@ storiesOf("InterviewerListItem", module)
     })
     .add("Appointment", () => <Appointment />)
     .add("Appointment with Time", () => <Appointment time="12pm" />)
+    .add("Header", () => <Header time={"12pm"} />)
