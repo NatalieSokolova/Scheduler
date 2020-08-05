@@ -16,6 +16,8 @@ import Show from "components/Appointment/Show.jsx"
 import Confirm from "components/Appointment/Confirm.jsx"
 import Status from "components/Appointment/Status.jsx"
 import Error from "components/Appointment/Error.jsx"
+import Form from "components/Appointment/Form.jsx"
+
 
 storiesOf("Button", module)
   .addParameters({
@@ -153,5 +155,22 @@ storiesOf("InterviewerListItem", module)
         onConfirm={action("onConfirm")}
         onCancel={action("onCancel")}
       />)
-    .add("Status", () => <Status message={"Deleting"} />)
+    .add("Status", () => <Status message={"Saving"} />)
     .add("Error", () => <Error message={"Could not delete appointment."} onClose={action("onClose")}/>)
+    .add("Edit", () => 
+      <Edit 
+      name={name}
+      interviewers={interviewers}
+      interviewer={3}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+      />)
+    .add("Create", () =>
+      <Create
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+      />)
+
+      // interviewers={interviewers}
+      //   value={3}
