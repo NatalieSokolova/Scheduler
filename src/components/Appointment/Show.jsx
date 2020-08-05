@@ -1,16 +1,7 @@
 import React from "react";
 
-const classNames = require('classnames');
-
 export default function Show(props) {
   const { student, interviewer, onEdit, onDelete } = props;
-
-    // <Show
-    //   student={student}
-    //   // interviewer={}
-    //   onEdit={event => props.onClick}
-    //   onDelete={event => props.onClick}
- 
 
   return (
     <main className="appointment__card appointment__card--show">
