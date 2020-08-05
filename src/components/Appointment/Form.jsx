@@ -7,13 +7,10 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const { interviewers, onSave, onCancel } = props;
   
-  // RRESETTING INPUTS
-  // const reset = () => {
-  //   return setName("") && setInterviewer(null);
-  // }
-
-  // const cancel = (reset, {onCancel}) 
-  const reset = () => setName("") && setInterviewer(null);
+  const reset = () => {
+    setName("");
+    setInterviewer(null);
+  };
   const cancel = () => reset(onCancel());
 
     return (
