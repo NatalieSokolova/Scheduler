@@ -14,9 +14,7 @@ export default function Form(props) {
 
   // const cancel = (reset, {onCancel}) 
   const reset = () => setName("") && setInterviewer(null);
-  const cancel = () => reset(onCancel);
-
-
+  const cancel = () => reset(onCancel());
 
     return (
       <main className="appointment__card appointment__card--create">
