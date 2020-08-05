@@ -13,6 +13,10 @@ export default function Form(props) {
   // }
 
   // const cancel = (reset, {onCancel}) 
+  const reset = () => setName("") && setInterviewer(null);
+  const cancel = () => reset(onCancel);
+
+
 
     return (
       <main className="appointment__card appointment__card--create">
@@ -30,7 +34,7 @@ export default function Form(props) {
             </section>
             <section className="appointment__card-right">
               <section className="appointment__actions">
-                <Button danger onClick={onCancel}>Cancel</Button>
+                <Button danger onClick={cancel}>Cancel</Button>
                 <Button confirm onClick={(event) => onSave(name, interviewer)}>Save</Button>
               </section>
             </section>
