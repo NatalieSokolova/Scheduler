@@ -7,28 +7,35 @@ export default function useVisualMode(initial) {
   const [history, setHistory] = useState([initial]);
 
   // enables transitioning into a different mode
-  const transition = newMode => {
-    const newHistory = [...history, newMode]
-    setHistory(newHistory)
+  const transition = (newMode, replace = false) => {
+    let newHistory;
 
-    console.log("newHistory: ",newHistory)
-    setMode(newMode)
-    console.log("newMode: ", newMode)
+    if (replace === true) {
+      newHistory = [...history.slice(0, history.length - 1), newMode];
+      setHistory(newHistory)
+
+      // console.log("newHistory true: ", newHistory)
+      // console.log("newMode true: ", newMode)
+    } else {
+      newHistory = [...history, newMode]
+      setHistory(newHistory)
+
+    // console.log("newHistory false: ", newHistory)
+    // console.log("newMode false: ", newMode)
+    }
+    return setMode(newMode)
   }
   // enables going back to the previous mode
   const back = () => {
-    console.log("mode:", mode)
-    console.log("sliced: ", history.slice(0, history.length - 1))
-
-    setHistory(history.slice(0, history.length - 1))
-
-    console.log("finalHistory: ", history.slice(0, history.length - 1))
-    console.log("prev: ", history[history.length - 1])
-
-    setMode(history[history.length - 2])
+    // console.log("mode:", mode)
+    // console.log("finalHistory: ", history.slice(0, history.length - 1))
+    // console.log("prev: ", history[history.length - 1])
     
+    if (history.length > 1) {
+      setHistory(history.slice(0, history.length - 1))
+      setMode(history[history.length - 2])
+    }
   }
-
   return {mode, transition, back};
 }
 
