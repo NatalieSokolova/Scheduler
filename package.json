@@ -2,7 +2,9 @@
   "name": "scheduler",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8001",
   "dependencies": {
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
@@ -16,6 +18,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public"
+
   },
   "browserslist": {
     "production": [
@@ -38,6 +41,7 @@
     "@storybook/react": "^5.0.10",
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
+    "jest": "^26.2.2",
     "node-sass": "^4.14.1"
   },
   "jest": {
