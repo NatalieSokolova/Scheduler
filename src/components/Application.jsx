@@ -57,8 +57,14 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [days, setDays] = useState([]);
-  const [day, setDay] = useState("Monday");
+  // const [days, setDays] = useState([]);
+  // const [day, setDay] = useState("Monday");
+
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
 
   useEffect(() => {
     console.log("Getting list of days");
@@ -73,33 +79,35 @@ export default function Application(props) {
 
   const parsedAppointment = appointments.map(appointment => 
      <Appointment key={appointment.id} {...appointment}/>)
-    
-  return (
-    <main className="layout">
-      <section className="sidebar">
-      <img
-        className="sidebar--centered"
-        src="images/logo.png"
-        alt="Interview Scheduler"
-      />
-      <hr className="sidebar__separator sidebar--centered" />
-      <nav className="sidebar__menu">
-      <DayList
-        days={days}
-        day={day}
-        setDay={setDay}
-      />
-      </nav>
-      <img
-        className="sidebar__lhl sidebar--centered"
-        src="images/lhl.png"
-        alt="Lighthouse Labs"
-      />
-      </section>
-      <section className="schedule">  
-      {parsedAppointment}
-      </section>
-    </main>
-  );
+     const setDay = day => setState({ ...state, day });
+     const setDays = days => setState(state => ({...state, days}))
+
+      return (
+        <main className="layout">
+          <section className="sidebar">
+          <img
+            className="sidebar--centered"
+            src="images/logo.png"
+            alt="Interview Scheduler"
+          />
+          <hr className="sidebar__separator sidebar--centered" />
+          <nav className="sidebar__menu">
+          <DayList
+            days={state.days}
+            day={state.day}
+            setDay={setDay}
+          />
+          </nav>
+          <img
+            className="sidebar__lhl sidebar--centered"
+            src="images/lhl.png"
+            alt="Lighthouse Labs"
+          />
+          </section>
+          <section className="schedule">  
+          {parsedAppointment}
+          </section>
+        </main>
+      );
 
 }

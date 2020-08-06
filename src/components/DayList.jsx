@@ -17,3 +17,9 @@ export default function DayList(props) {
 
   return parsedDays;
 }
+
+// const [state, setState] = useState({
+//   day: "Monday",
+//   days: [],
+//   appointments: {}
+// });
