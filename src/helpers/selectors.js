@@ -33,3 +33,25 @@ export default function getAppointmentsForDay(state, day) {
   }
   return appointmentsForDay;
 }
+
+
+export function getInterview(state, interview) {
+
+  const interviewObj = {};
+
+  if (!interview) {
+    return null;
+  } else {
+
+    for (const id in state.interviewers) {
+      console.log('state.interviewers: ', state.interviewers )
+      if (Number(id) === interview.interviewer) {
+        console.log("interview.interviewer: ", interview.interviewer)
+        interviewObj.student = interview.student;
+        interviewObj.interviewer = state.interviewers[id];
+      }
+    }
+  }
+
+  return interviewObj;
+};
