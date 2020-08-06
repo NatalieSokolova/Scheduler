@@ -57,8 +57,6 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  // const [days, setDays] = useState([]);
-  // const [day, setDay] = useState("Monday");
 
   const [state, setState] = useState({
     day: "Monday",
@@ -66,21 +64,38 @@ export default function Application(props) {
     appointments: {}
   });
 
+  const setDay = day => setState({ ...state, day });
+  console.log("state.day: ", state.day)
   useEffect(() => {
     console.log("Getting list of days");
 
-    axios.get("/api/days")
-    .then((response) => {
-      setDays(response.data)
-    })
-    .catch(err => console.log(err))
-  }, [])
+    // axios.get("/api/days")
+    // .then((response) => {
+    //   //setDays(response.data)
+    // })
 
+    const dayReq = axios.get("/api/days")
+
+    const appointmentsReq = axios.get("/api/appointments")
+
+    Promise.all([
+      Promise.resolve(dayReq), 
+      Promise.resolve(appointmentsReq)
+      ])
+      .then((all) => {
+        console.log("all: ", all)
+        
+        setState(prev => ({...prev, days: all[0].data, appointments: all[1].data}))
+      })
+
+      .catch(err => console.log(err))
+
+      }, [])
 
   const parsedAppointment = appointments.map(appointment => 
      <Appointment key={appointment.id} {...appointment}/>)
-     const setDay = day => setState({ ...state, day });
-     const setDays = days => setState(state => ({...state, days}))
+   
+     //const setDays = days => setState(state => ({...state, days}))
 
       return (
         <main className="layout">
