@@ -1,15 +1,7 @@
-export function getAppointmentsForDay(state, day) {
+export default function getAppointmentsForDay(state, day) {
   // returns the value of the first element in the provided array that satisfies the provided testing function
   const selectedDayObj = state.days.find(selectedDay => selectedDay.name === day);
   const appointmentsForDay = [];
-
-  // selectedDayObj =  {
-  //   id: 1,
-  //   name: "Monday",
-  //   appointments: [1, 2, 3]
-  // }
-
-
 
   if (!selectedDayObj) {
     //if there are no appointments on the given day, our days data is empty.
