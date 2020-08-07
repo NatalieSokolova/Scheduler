@@ -47,8 +47,25 @@ export default function Application(props) {
   }
 
   const cancelInterview = (id) => {
-    const selectedAppointment = state.appointments.find(appointment => appointment.id === id)
-    return selectedAppointment.interview = "null";
+    console.log("state.appointments: ", state.appointments)
+    console.log("props: ", props)
+    //const selectedAppointment = state.appointments.find(appointment => appointment.id === id)
+    for (const appointment in  state.appointments) {
+      if (state.appointments[appointment].id === id) {
+        console.log("appointment.id: ", state.appointments[appointment].id)
+        console.log("appointment: ", appointment)
+
+        const selectedAppointment = state.appointments[appointment].interview
+
+        console.log("selectedAppointment: ", selectedAppointment)
+      }
+    }
+
+    return axios.delete(`/api/appointments/${id}`)
+      .then(response => {
+        setState(prev => ({ ...state, selectedAppointment: null }));
+      })
+      .catch(err => console.log(err))
   }
 
   const setDay = day => setState({ ...state, day });
@@ -91,6 +108,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewerList}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
         />
       )
     })
