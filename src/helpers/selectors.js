@@ -47,33 +47,16 @@ export function getInterviewersForDay(state, day) {
     // converts strings to num and iterates
     const stateAppKeyNums = stateAppKeys.map(Number)
 
-    for (const id of selectedDayObj.appointments) {
-      // console.log("selectedDayObj: ", selectedDayObj)
-      // console.log("selectedDayObj.appointments:",  selectedDayObj.appointments)
+    for (const id of selectedDayObj.interviewers) {
+      if (stateAppKeyNums.includes(id)) {
 
-      //check if if interview obj is not null and includes id of selectedDayObj.appointments
-      if (state.appointments[id.toString()].interview && stateAppKeyNums.includes(id)) {
-
-        // console.log("state.appointments.id.interview: ", state.appointments[id.toString()].interview)
-        // console.log("state.appointments.id.interview.interviewer: ", state.appointments[id.toString()].interview.interviewer)
-
-        // console.log("stateAppKeyNums: ", stateAppKeyNums)
-        // console.log("id: ", id)
-        // console.log("state.interviewers[id]: ", state.interviewers[id])
-
-        const interviewerId = state.appointments[id.toString()].interview.interviewer
-
-        interviewersForDay.push(state.interviewers[interviewerId.toString()])
-
+        interviewersForDay.push(state.interviewers[id.toString()])        
       }
     }
 
   }
-  console.log("interviewersForDay: ", interviewersForDay)
   return interviewersForDay;
 }
-
-
 
 
 export function getInterview(state, interview) {

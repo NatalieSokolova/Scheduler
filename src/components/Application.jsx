@@ -11,11 +11,33 @@ import {getInterview} from "../helpers/selectors"
 export default function Application(props) {
 
   const [state, setState] = useState({
-    day: "Monday",
+    day: "",
     days: [],
-    appointments: {},
+    appointments: {
+      "1": {
+      id: 1,
+      time: "12pm",
+      interview: null
+    }
+  },
     interviewer: {}
   });
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({ ...state, appointments });
+
+    console.log(id, interview);
+  }
 
   const setDay = day => setState({ ...state, day });
   console.log("state.day: ", state.day)
@@ -56,6 +78,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewerList}
+        bookInterview={bookInterview}
         />
       )
     })
