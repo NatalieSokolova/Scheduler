@@ -4,12 +4,14 @@ import Header from "components/Appointment/Header.jsx";
 import Show from "components/Appointment/Show.jsx";
 import Empty from "components/Appointment/Empty.jsx";
 import Form from "components/Appointment/Form.jsx";
+import Status from "components/Appointment/Status.jsx";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const SAVING = "SAVING"
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -20,8 +22,10 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview); //to update the state object
-    transition(SHOW);
+
+    transition(SAVING)
+
+    props.bookInterview(props.id, interview).then(() => transition(SHOW));
   }
 
 
@@ -42,7 +46,7 @@ export default function Appointment(props) {
     interviewers={props.interviewers}
     onCancel={back}
     />)}
-
+  {mode === SAVING && (<Status message={"Saving"} />)}
     </article>
   )
 }

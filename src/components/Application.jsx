@@ -11,7 +11,7 @@ import {getInterview} from "../helpers/selectors"
 export default function Application(props) {
 
   const [state, setState] = useState({
-    day: "",
+    day: "Monday",
     days: [],
     appointments: {
       "1": {
@@ -23,7 +23,7 @@ export default function Application(props) {
     interviewer: {}
   });
 
-  function bookInterview(id, interview) {
+  const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -39,11 +39,16 @@ export default function Application(props) {
     console.log(id, interview);
 
     // to make sure saved data remains after browser is refreshed
-    axios.put(`/api/appointments/${id}`, {id, interview})
+    return axios.put(`/api/appointments/${id}`, appointment)
     .then(response => {
       setState(prev => ({ ...state, appointments }));
     })
     .catch(err => console.log(err))
+  }
+
+  const cancelInterview = (id) => {
+    const selectedAppointment = state.appointments.find(appointment => appointment.id === id)
+    return selectedAppointment.interview = "null";
   }
 
   const setDay = day => setState({ ...state, day });
@@ -114,6 +119,10 @@ export default function Application(props) {
            </section>
            <section className="schedule">  
            {parsedAppointment}
+           <Appointment 
+            key="last" 
+            time="5pm" 
+            />
            </section>
          </main>
        );
