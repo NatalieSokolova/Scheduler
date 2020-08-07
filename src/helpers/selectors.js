@@ -11,7 +11,7 @@ export function getAppointmentsForDay(state, day) {
     console.log("selectedDayObj.appointments: ", selectedDayObj.appointments)
    
     // iterate over selectedDayObj.appointments
-    // chack if selectedDayObj.appointments id matches state.appointments keys
+    // check if selectedDayObj.appointments id matches state.appointments keys
     // push appointment obj into appointmentsForDay
     // return appointmentsForDay
     
@@ -35,8 +35,25 @@ export function getAppointmentsForDay(state, day) {
 }
 
 
-export function getInterviewersForDay() {
-  
+export function getInterviewersForDay(state, day) {
+  const selectedDayObj = state.days.find(selectedDay => selectedDay.name === day);
+  const interviewersForDay = [];
+  //if there are no appointments on the given day, our days data is empty.
+  if (!selectedDayObj) {
+    return [];
+  } else {
+    const stateAppKeys = Object.keys(state.appointments)
+    const stateAppKeyNums = stateAppKeys.map(Number)
+    // checks if a selected day appointment id matches state app id
+    for (const appointment of selectedDayObj.appointments) {
+      if (stateAppKeyNums.includes(appointment)) {
+        // if a match => add interviewer obj to the arr
+        interviewersForDay.push(state.appointments[appointment.interviewer])
+      }
+    }
+
+  }
+  return interviewersForDay;
 }
 
 
