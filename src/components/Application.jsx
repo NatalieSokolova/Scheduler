@@ -37,6 +37,13 @@ export default function Application(props) {
     setState({ ...state, appointments });
 
     console.log(id, interview);
+
+    // to make sure saved data remains after browser is refreshed
+    axios.put(`/api/appointments/${id}`, {id, interview})
+    .then(response => {
+      setState(prev => ({ ...state, appointments }));
+    })
+    .catch(err => console.log(err))
   }
 
   const setDay = day => setState({ ...state, day });
