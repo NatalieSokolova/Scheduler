@@ -12,13 +12,13 @@ export default function useVisualMode(initial) {
 
     if (replace === true) {
       newHistory = [...history.slice(0, history.length - 1), newMode];
-      setHistory(newHistory)
+      setHistory(prev => ([...prev, newHistory]))
 
       // console.log("newHistory true: ", newHistory)
       // console.log("newMode true: ", newMode)
     } else {
       newHistory = [...history, newMode]
-      setHistory(newHistory)
+      setHistory(prev => ([...prev, newHistory]))
 
     // console.log("newHistory false: ", newHistory)
     // console.log("newMode false: ", newMode)
@@ -32,7 +32,7 @@ export default function useVisualMode(initial) {
     // console.log("prev: ", history[history.length - 1])
     
     if (history.length > 1) {
-      setHistory(history.slice(0, history.length - 1))
+      setHistory(prev => ([...prev, history.slice(0, history.length - 1)]))
       setMode(history[history.length - 2])
     }
   }
