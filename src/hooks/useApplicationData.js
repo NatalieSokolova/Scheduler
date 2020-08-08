@@ -28,9 +28,15 @@ const bookInterview = (id, interview) => {
     [id]: appointment
   };
 
-  setState({ ...state, appointments });
+  // reduces number of spots after booking
+  if (appointment.id) {
+    const selectedDay = state.days.find(day => day.appointments.includes(appointment.id))
+    const spots = selectedDay.spots--
+    setState(prev => ({ ...state, appointments, spots }));
 
-  console.log(id, interview);
+    console.log("selectedDay.spots: ",  selectedDay.spots)
+    console.log("selectedDay: ", selectedDay)
+  }
 
   // to make sure saved data remains after browser is refreshed
   return axios.put(`/api/appointments/${id}`,{ id, interview })
@@ -42,17 +48,19 @@ const bookInterview = (id, interview) => {
 
 // removes interview from db
 const cancelInterview = (id) => {
-  console.log("state.appointments: ", state.appointments)
-
-  //const selectedAppointment = state.appointments.find(appointment => appointment.id === id)
+  //console.log("state: ", state)
+  
   for (const appointment in  state.appointments) {
     if (state.appointments[appointment].id === id) {
-      console.log("appointment.id: ", state.appointments[appointment].id)
-      console.log("appointment: ", appointment)
-
+    
       const selectedAppointment = state.appointments[appointment].interview
-
       console.log("selectedAppointment: ", selectedAppointment)
+
+      const selectedDay = state.days.find(day => day.appointments.includes(id))
+      const spots = selectedDay.spots++
+      setState(prev => ({ ...state, spots }));
+
+      //console.log("selectedDay.spots: ",  selectedDay.spots)
     }
   }
 
@@ -62,7 +70,6 @@ const cancelInterview = (id) => {
     })
     .catch(err => console.log(err))
 }
-
 
 const setDay = day => setState({ ...state, day });
   console.log("state.day: ", state.day)
