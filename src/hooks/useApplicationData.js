@@ -50,7 +50,7 @@ const cancelInterview = (id) => {
  
   for (const appointment in  state.appointments) {
     if (state.appointments[appointment].id === id) {
-      const selectedAppointment = state.appointments[appointment].interview
+      //const selectedAppointment = state.appointments[appointment].interview
 
        // increases number of spots after cancellation
       const selectedDay = state.days.find(day => day.appointments.includes(id))

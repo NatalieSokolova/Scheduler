@@ -12,7 +12,8 @@ InterviewerList.propTypes = {
 
 export default function InterviewerList(props) {
 
-  const interviewers = props.interviewers.map(value =>
+  const interviewers = props.interviewers.map(value => {
+    return (
     <InterviewerListItem
       key={value.id}
       name={value.name}
@@ -20,6 +21,7 @@ export default function InterviewerList(props) {
       selected={value.id === props.value}
       setInterviewer={(event) => props.onChange(value.id)}
     />)
+})
   return (
     <section className="interviewers">
     <h4 className="interviewers__header text--light">Interviewer</h4>
