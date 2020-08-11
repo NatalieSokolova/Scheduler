@@ -34,14 +34,16 @@ const bookInterview = (id, interview) => {
     [id]: appointment
   };
 
-  //reduces number of spots after booking
-  if (appointment.id) {
-    console.log("state:", state)
-    const selectedDay = state.days.find(day => day.appointments.includes(appointment.id))
-    const spots = selectedDay.spots--
-    setState(prev => ({ ...state, appointments, spots }));
+  // checks to see if appointment doesn't already exists
+  if (state.appointments[id].interview === null) {
+      //reduces number of spots after booking
+    if (appointment.id) {
+      console.log("state:", state)
+      const selectedDay = state.days.find(day => day.appointments.includes(appointment.id))
+      const spots = selectedDay.spots--
+      setState(prev => ({ ...state, appointments, spots }));
+    }
   }
-
 
   // to make sure saved data remains after browser is refreshed
   return axios.put(`/api/appointments/${id}`,{ id, interview })
@@ -56,7 +58,6 @@ const cancelInterview = (id) => {
  
   for (const appointment in  state.appointments) {
     if (state.appointments[appointment].id === id) {
-      //const selectedAppointment = state.appointments[appointment].interview
 
        // increases number of spots after cancellation
       const selectedDay = state.days.find(day => day.appointments.includes(id))
@@ -71,9 +72,6 @@ const cancelInterview = (id) => {
     })
     .catch(err => console.log(err))
 }
-
-//NOTE TO SELF:
-// refactor changeSpotsNumber to use ternary operator if bookInterview or cancelInterview is called???
 
 
 const setDay = day => setState({ ...state, day });
