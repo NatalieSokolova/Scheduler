@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function() {
+//   axios.put("/appointments/:id", (request, response) => {
+//     if (process.env.TEST_ERROR) {
+//       setTimeout(() => response.status(500).json({}), 1000);
+//       return;
+//     }
+// });
 
 const [state, setState] = useState({
   day: "Monday",
