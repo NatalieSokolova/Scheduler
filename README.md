@@ -22,3 +22,9 @@ npm start
 ```
 
 ## Screeenshots
+
+!["A user is creating a new appointment"](https://github.com/NatalieSokolova/lighthouse-labs-scheduler/blob/feature/application/docs/appointment.png?raw=true)
+
+!["A user is deleting a new appointment"](https://github.com/NatalieSokolova/lighthouse-labs-scheduler/blob/feature/application/docs/delete.png?raw=true)
+
+!["An error while deleting an appointment"](https://github.com/NatalieSokolova/lighthouse-labs-scheduler/blob/feature/application/docs/error.png?raw=true)
