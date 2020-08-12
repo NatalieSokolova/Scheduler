@@ -2,13 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function () {
-  //   axios.put("/appointments/:id", (request, response) => {
-  //     if (process.env.TEST_ERROR) {
-  //       setTimeout(() => response.status(500).json({}), 1000);
-  //       return;
-  //     }
-  // });
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -24,57 +17,44 @@ export default function () {
 
   // adds interview to db
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    // checks to see if appointment doesn't already exists
-    if (state.appointments[id].interview === null) {
-      //reduces number of spots after booking
-      if (appointment.id) {
-        const selectedDay = state.days.find((day) =>
-          day.appointments.includes(appointment.id)
-        );
-        const spots = selectedDay.spots--;
-        setState((prev) => ({ ...state, appointments, spots }));
-      }
-    }
-
     // to make sure saved data remains after browser is refreshed
     return axios
       .put(`/api/appointments/${id}`, { id, interview })
       .then((response) => {
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview },
+        };
+
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment,
+        };
+
+        // checks to see if appointment doesn't already exists
+        if (state.appointments[id].interview === null) {
+          //reduces number of spots after booking
+          if (appointment.id) {
+            const selectedDay = state.days.find((day) =>
+              day.appointments.includes(appointment.id)
+            );
+            const spots = selectedDay.spots--;
+            setState((prev) => ({ ...state, appointments, spots }));
+          }
+        }
         setState({ ...state, appointments });
       });
-    //.catch((err) => console.log(err));
   };
 
   // removes interview from db
   const cancelInterview = (id) => {
-    for (const appointment in state.appointments) {
-      if (state.appointments[appointment].id === id) {
-        // increases number of spots after cancellation
-        const selectedDay = state.days.find((day) =>
-          day.appointments.includes(id)
-        );
-        const spots = selectedDay.spots++;
-        setState((prev) => ({ ...state, spots }));
-      }
-    }
-
     return axios.delete(`/api/appointments/${id}`).then((response) => {
+      const selectedDay = state.days.find((day) =>
+        day.appointments.includes(id)
+      );
+      selectedDay.spots++;
       setState((prev) => ({ ...state, selectedAppointment: null }));
     });
-    // .catch((err) => {
-    //   debugger;
-    //   return err;
-    // });
   };
 
   const setDay = (day) => setState({ ...state, day });

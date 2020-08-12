@@ -84,7 +84,7 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
 
-    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
@@ -117,10 +117,10 @@ describe("Application", () => {
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
 
-  xit("shows the save error when failing to save an appointment", async () => {
+  it("shows the save error when failing to save an appointment", async () => {
     axios.put.mockRejectedValueOnce();
 
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -139,15 +139,13 @@ describe("Application", () => {
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    await waitForElement(() => {
-      getByText(container, "Oops! Error saving the appointment");
-    });
-
-    debug();
+    await waitForElement(() =>
+      getByText(container, "Oops! Unable to save the appointment")
+    );
   });
 
-  xit("shows the delete error when failing to delete an existing appointment", async () => {
-    axios.put.mockRejectedValueOnce();
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    axios.delete.mockRejectedValueOnce();
 
     const { container, debug } = render(<Application />);
 
@@ -166,9 +164,8 @@ describe("Application", () => {
 
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
 
-    //somehow shows error message ??
     await waitForElement(() =>
-      getByText(container, "Oops! Error deleting the appointment")
+      getByText(container, "Oops! Unable to delete the appointment")
     );
 
     debug();
