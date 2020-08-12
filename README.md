@@ -1,5 +1,16 @@
 # Interview Scheduler
 
+An easy-to-use app that allows you to book, edit and cancel interviews. Built in React, as a part of Lighthouse Labs bootcamp.
+
+## Dependencies:
+
+axios,
+classnames,
+normalize.css,
+react,
+react-dom,
+react-scripts
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -10,14 +21,4 @@ Install dependencies with `npm install`.
 npm start
 ```
 
-## Running Jest Test Framework
-
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+## Screeenshots
